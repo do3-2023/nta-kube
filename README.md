@@ -13,5 +13,5 @@ docker run -p 3000:3000 nta-kube-webapp:latest
 
 ```bash
 kubectl apply -f webapp/infra
-kubectl port-forward service/nta-kube-webapp 3000:3000
+kubectl port-forward deployment/nta-kube-webapp 8080:3000
 ```

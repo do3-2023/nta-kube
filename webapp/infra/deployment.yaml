@@ -17,5 +17,12 @@ spec:
       containers:
       - name: webapp
         image: ghcr.io/do3-2023/nta-kube:main 
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
+        # livenessProbe:
+        #   httpGet:
+        #     path: /healthz
+        #     port: 3000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
