@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nta-kube-webapp
+  name: nta-kube-api
   labels:
-    app: nta-kube-webapp
+    app: nta-kube-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nta-kube-webapp
+      app: nta-kube-api
   template:
     metadata:
       labels:
-        app: nta-kube-webapp
+        app: nta-kube-api
     spec:
       containers:
-      - name: webapp
-        image: ghcr.io/do3-2023/nta-kube/webapp:main
+      - name: api
+        image: ghcr.io/do3-2023/nta-kube/api:main
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
