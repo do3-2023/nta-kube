@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/manifoldco/healthz"
 )
 
 func main() {
@@ -18,6 +17,5 @@ func main() {
 		w.Write([]byte("hello world"))
 	})
 
-	handler := healthz.NewHandler(r)
-	http.ListenAndServe(":3000", handler)
+	http.ListenAndServe(":3000", r)
 }
