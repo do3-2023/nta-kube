@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         include:
-          # - image: api
-          #   dockerfile: api/Dockerfile
+          - image: api
+            dockerfile: api/Dockerfile
           - image: webapp
             dockerfile: webapp/Dockerfile
     permissions:
