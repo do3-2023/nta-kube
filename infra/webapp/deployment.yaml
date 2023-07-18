@@ -4,6 +4,7 @@ metadata:
   name: nta-kube-webapp
   labels:
     app: nta-kube-webapp
+  namespace: webapp
 spec:
   replicas: 3
   selector:

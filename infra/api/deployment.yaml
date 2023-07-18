@@ -4,6 +4,7 @@ metadata:
   name: nta-kube-api
   labels:
     app: nta-kube-api
+  namespace: api
 spec:
   replicas: 3
   selector:
