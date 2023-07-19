@@ -19,7 +19,7 @@ type DB struct {
 
 func main() {
 	// create connection to DB
-	db, err := NewDB("postgresql://db:db@" + os.Getenv("DB_URL") + "/api?sslmode=disable")
+	db, err := newDB("postgresql://db:db@" + os.Getenv("DB_URL") + "/api?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,12 +52,15 @@ func main() {
 	// health route
 	r.Get("/healthz", db.checkDB)
 
+	r.Get("/drinks", db.getDrinks)
+	r.Post("/drinks", db.addDrink)
+
 	log.Println("Starting api on port 3000")
 	http.ListenAndServe(":3000", r)
 }
 
 // Create a new DB connection
-func NewDB(url string) (*DB, error) {
+func newDB(url string) (*DB, error) {
 	var conn *sql.DB
 	var err error
 
@@ -79,7 +82,7 @@ func NewDB(url string) (*DB, error) {
 }
 
 // Check the DB connection by making a sql call
-func (db DB) checkDB(w http.ResponseWriter, r *http.Request) {
+func (db *DB) checkDB(w http.ResponseWriter, r *http.Request) {
 	err := db.conn.Ping()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
