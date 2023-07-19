@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -17,14 +18,26 @@ type DB struct {
 }
 
 func main() {
-	// open connection to psql db
-	connDB, err := sql.Open("postgres", "postgresql://db:db@"+os.Getenv("DB_URL")+"/api?sslmode=disable")
+	// create connection to DB
+	db, err := NewDB("postgresql://db:db@" + os.Getenv("DB_URL") + "/api?sslmode=disable")
 	if err != nil {
-		log.Println(err)
-		return
+		log.Fatal(err)
 	}
-	db := DB{connDB}
-	defer connDB.Close()
+	defer db.conn.Close()
+	log.Println("Connected to DB")
+
+	// create table for drinks
+	query := `
+		CREATE TABLE IF NOT EXISTS drinks (
+			id SERIAL PRIMARY KEY,
+			emoji VARCHAR(100) NOT NULL,
+			name VARCHAR(100) NOT NULL
+		)`
+	_, err = db.conn.Exec(query)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Table drinks is ready")
 
 	// create api router
 	r := chi.NewRouter()
@@ -39,7 +52,30 @@ func main() {
 	// health route
 	r.Get("/healthz", db.checkDB)
 
+	log.Println("Starting api on port 3000")
 	http.ListenAndServe(":3000", r)
+}
+
+// Create a new DB connection
+func NewDB(url string) (*DB, error) {
+	var conn *sql.DB
+	var err error
+
+	// try 5 times to connect to the DB
+	for i := 0; i < 5; i++ {
+		conn, _ = sql.Open("postgres", url)
+		err = conn.Ping()
+		if err == nil {
+			break
+		}
+		log.Println("Failed to connect to DB. Retrying in 5 seconds")
+		time.Sleep(5 * time.Second)
+	}
+	if err != nil {
+		return &DB{}, fmt.Errorf("Failed to connect to DB after 5 tries")
+	}
+
+	return &DB{conn}, nil
 }
 
 // Check the DB connection by making a sql call
