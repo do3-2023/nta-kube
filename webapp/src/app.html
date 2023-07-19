@@ -4,9 +4,17 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/papercss@1.9.2/dist/paper.min.css"
+		/>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div class="row flex-center">
+			<div class="paper">
+				%sveltekit.body%
+			</div>
+		</div>
 	</body>
 </html>
