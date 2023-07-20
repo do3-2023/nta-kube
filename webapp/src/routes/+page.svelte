@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import type { Drink } from '$lib/types';
+  import autoAnimate from "@formkit/auto-animate"
   export let data: PageData;
 
   const addDrink = async (): Promise<void> => {
@@ -18,8 +19,10 @@
 </script>
 
 <h1>🍻 Bar counter</h1>
-<button style="margin:auto;display:flex" on:click={addDrink}>Add random drink</button>
-<ul>
+<div class="row flex-spaces child-borders">
+  <button on:click={addDrink}>Add random drink</button>
+</div>
+<ul use:autoAnimate={{ duration: 150 }}>
   {#each data.drinks as drink}
     <li>
       {drink.Emoji} {drink.Name}
