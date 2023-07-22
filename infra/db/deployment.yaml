@@ -16,21 +16,21 @@ spec:
         app: nta-kube-db
     spec:
       containers:
-        - name: db
-          image: postgres:15-alpine
-          imagePullPolicy: "IfNotPresent"
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_USER
-              value: db
-            - name: POSTGRES_PASSWORD
-              value: db
-            - name: POSTGRES_DB
-              value: api
-          volumeMounts:
-            - name: db-data
-              mountPath: /var/lib/postgresql
+      - name: db
+        image: postgres:15-alpine
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: db
+          - name: POSTGRES_PASSWORD
+            value: db
+          - name: POSTGRES_DB
+            value: api
+        volumeMounts:
+          - name: db-data
+            mountPath: /var/lib/postgresql
       volumes:
         - name: db-data
           persistentVolumeClaim:

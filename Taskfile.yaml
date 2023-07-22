@@ -33,8 +33,7 @@ tasks:
     desc: Port-forward the webapp to access on local machine.
     aliases: [port]
     cmds:
-      - kubectl config set-context --current --namespace=webapp
-      - kubectl port-forward service/nta-kube-webapp 8080:3000
+      - kubectl -n webapp port-forward service/nta-kube-webapp 8080:3000
 
   delete-cluster:
     desc: Delete the cluster
