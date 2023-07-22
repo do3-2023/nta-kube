@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nta-kube-db
+  namespace: db
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: nta-kube-db
+  type: ClusterIP
