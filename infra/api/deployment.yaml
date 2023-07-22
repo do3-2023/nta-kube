@@ -21,9 +21,12 @@ spec:
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
-        # livenessProbe:
-        #   httpGet:
-        #     path: /healthz
-        #     port: 3000
-        #   initialDelaySeconds: 3
-        #   periodSeconds: 3
+        env:
+          - name: DB_URL
+            value: nta-kube-db.db.svc.cluster.local:5432
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 3

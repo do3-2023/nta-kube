@@ -6,7 +6,7 @@ metadata:
     app: nta-kube-webapp
   namespace: webapp
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: nta-kube-webapp
@@ -21,6 +21,9 @@ spec:
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
+        env:
+          - name: API_URL
+            value: http://nta-kube-api.api.svc.cluster.local:3000
         livenessProbe:
           httpGet:
             path: /healthz
