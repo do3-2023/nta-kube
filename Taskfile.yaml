@@ -2,31 +2,43 @@ version: '3'
 
 tasks:
   dev:
-    desc: Create docker containers for dev purposes
+    desc: Create docker containers for dev purposes.
     cmds:
       - docker compose up -d
 
-  create:
-    desc: Create a K3D cluster
+  create-cluster:
+    desc: Create a K3D cluster.
+    aliases: [create]
     cmds:
       - k3d cluster create nta-kube
 
   install:
-    desc: Apply the k8s config to the cluster
+    desc: Apply the k8s config to the cluster.
+    aliases: [apply]
     cmds:
       - kubectl apply -f infra/namespaces
       - kubectl apply -f infra/db
       - kubectl apply -f infra/api
       - kubectl apply -f infra/webapp
 
+  deploy:
+    desc: Create a cluster and deploy everything in one command.
+    silent: true
+    cmds:
+      - task: create
+      - task: install
+      - echo "✅ The cluster is ready. Please use 'task port' to port-forward the web app."
+
   port-forward:
-    desc: Port-forward the webapp to access on local machine
+    desc: Port-forward the webapp to access on local machine.
+    aliases: [port]
     cmds:
       - kubectl config set-context --current --namespace=webapp
       - kubectl port-forward service/nta-kube-webapp 8080:3000
 
-  delete:
+  delete-cluster:
     desc: Delete the cluster
+    aliases: [delete, destroy]
     prompt: You are going to delete the cluster 'nta-kube'. Are you sure?
     cmds:
       - k3d cluster delete nta-kube
