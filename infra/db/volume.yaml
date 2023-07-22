@@ -4,8 +4,9 @@ metadata:
   name: db-pv
   labels:
     app: db
-  namespace: db
+    type: local
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
@@ -21,6 +22,7 @@ metadata:
     app: db
   namespace: db
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
