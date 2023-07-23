@@ -31,11 +31,11 @@ spec:
           httpGet:
             path: /healthz
             port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /healthz
             port: 3000
-          initialDelaySeconds: 20
+          initialDelaySeconds: 30
           periodSeconds: 10

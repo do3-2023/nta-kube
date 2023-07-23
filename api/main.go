@@ -76,8 +76,8 @@ func newDB(url string) (*DB, error) {
 	var conn *sql.DB
 	var err error
 
-	// try 5 times to connect to the DB
-	for i := 0; i < 5; i++ {
+	// try 10 times to connect to the DB
+	for i := 0; i < 10; i++ {
 		conn, _ = sql.Open("postgres", url)
 		err = conn.Ping()
 		if err == nil {
@@ -87,7 +87,7 @@ func newDB(url string) (*DB, error) {
 		time.Sleep(5 * time.Second)
 	}
 	if err != nil {
-		return &DB{}, fmt.Errorf("Failed to connect to DB after 5 tries")
+		return &DB{}, fmt.Errorf("Failed to connect to DB after 10 tries")
 	}
 
 	return &DB{conn}, nil
