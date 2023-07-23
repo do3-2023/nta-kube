@@ -10,13 +10,15 @@ services:
       - db
     environment:
       - DB_URL=db:5432
+      - DB_USERNAME=test
+      - DB_PASSWORD=test
 
   db:
     image: postgres:latest
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=db
-      - POSTGRES_PASSWORD=db
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
       - POSTGRES_DB=api
 

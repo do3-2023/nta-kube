@@ -24,6 +24,16 @@ spec:
         env:
           - name: DB_URL
             value: nta-kube-db.db.svc.cluster.local:5432
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: api-secret
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: api-secret
+                key: password
         livenessProbe:
           httpGet:
             path: /healthz

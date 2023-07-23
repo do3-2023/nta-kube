@@ -20,7 +20,13 @@ type DB struct {
 
 func main() {
 	// create connection to DB
-	db, err := newDB("postgresql://db:db@" + os.Getenv("DB_URL") + "/api?sslmode=disable")
+	connURL := fmt.Sprintf(
+		"postgresql://%s:%s@%s/api?sslmode=disable",
+		os.Getenv("DB_USERNAME"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_URL"),
+	)
+	db, err := newDB(connURL)
 	if err != nil {
 		log.Fatal(err)
 	}
