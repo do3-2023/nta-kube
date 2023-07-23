@@ -43,7 +43,7 @@ func main() {
 		)`
 	_, err = db.conn.Exec(query)
 	if err != nil {
-		log.Fatal(err)
+		log.Println("The table already exists")
 	}
 	log.Println("Table drinks is ready")
 
