@@ -23,7 +23,10 @@ spec:
         - containerPort: 3000
         env:
           - name: API_URL
-            value: http://nta-kube-api.api.svc.cluster.local:3000
+            valueFrom:
+              configMapKeyRef:
+                name: webapp-config
+                key: api_url
         livenessProbe:
           httpGet:
             path: /healthz

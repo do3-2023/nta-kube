@@ -21,10 +21,11 @@ type DB struct {
 func main() {
 	// create connection to DB
 	connURL := fmt.Sprintf(
-		"postgresql://%s:%s@%s/api?sslmode=disable",
+		"postgresql://%s:%s@%s/%s?sslmode=disable",
 		os.Getenv("DB_USERNAME"),
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_URL"),
+		os.Getenv("DB_NAME"),
 	)
 	db, err := newDB(connURL)
 	if err != nil {

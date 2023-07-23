@@ -23,7 +23,15 @@ spec:
         - containerPort: 3000
         env:
           - name: DB_URL
-            value: nta-kube-db.db.svc.cluster.local:5432
+            valueFrom:
+              configMapKeyRef:
+                name: api-config
+                key: db_url
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: api-config
+                key: db_name
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:

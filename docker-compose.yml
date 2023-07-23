@@ -12,6 +12,7 @@ services:
       - DB_URL=db:5432
       - DB_USERNAME=test
       - DB_PASSWORD=test
+      - DB_NAME=test
 
   db:
     image: postgres:latest
@@ -20,5 +21,5 @@ services:
     environment:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
-      - POSTGRES_DB=api
+      - POSTGRES_DB=test
 
