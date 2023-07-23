@@ -27,7 +27,7 @@ tasks:
     cmds:
       - task: create
       - task: install
-      - echo "✅ The cluster is ready. Please use 'task port' to port-forward the web app."
+      - echo "✅ The cluster is deployed. Please use 'task port' to port-forward the web app. You may need for a bit before it's ready."
 
   port-forward:
     desc: Port-forward the webapp to access on local machine.
